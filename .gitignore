@@ -55,3 +55,4 @@ app.*.map.json
 
 windows/
 /windows/
+/android/app/google-services.json

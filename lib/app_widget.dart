@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:payflow/modules/barcode_scanner/barcode_scanner_page.dart';
 import 'package:payflow/modules/home/home_page.dart';
+import 'package:payflow/modules/login/login_controller.dart';
 import 'package:payflow/modules/splash/splash_page.dart';
 import 'package:payflow/shared/models/user_model.dart';
 
@@ -17,6 +18,8 @@ class AppWidget extends StatelessWidget {
     ]);
   }
 
+  final controller = LoginController();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,6 +31,7 @@ class AppWidget extends StatelessWidget {
         "/splash": (context) => SplashPage(),
         "/home": (context) => HomePage(
               user: ModalRoute.of(context)!.settings.arguments as UserModel,
+              controller: controller,
             ),
         "/login": (context) => LoginPage(),
         "/barcode_scanner": (context) => BarcodeScannerPage(),

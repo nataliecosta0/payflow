@@ -5,12 +5,14 @@ import 'package:payflow/shared/models/user_model.dart';
 
 class LoginController {
   final authController = AuthController();
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+    ],
+  );
+  
   Future<void> googleSignIn(BuildContext context) async {
-    GoogleSignIn _googleSignIn = GoogleSignIn(
-      scopes: [
-        'email',
-      ],
-    );
+    
     try {
       final response = await _googleSignIn.signIn();
       final user = UserModel(
@@ -22,6 +24,15 @@ class LoginController {
     } catch (error) {
       authController.setUser(context, null);
       print(error);
+    }
+  }
+  Future<void> googleLogOut(BuildContext context) async {
+    try {
+      await _googleSignIn.signOut();
+      authController.logOut();
+      Navigator.pushReplacementNamed(context, "/login");
+    } catch (e) {
+      print(e);
     }
   }
 }

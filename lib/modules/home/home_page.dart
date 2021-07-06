@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:payflow/modules/extract/extract_page.dart';
 import 'package:payflow/modules/home/home_controller.dart';
+import 'package:payflow/modules/login/login_controller.dart';
 import 'package:payflow/modules/meus_boletos/meus_boletos_page.dart';
 import 'package:payflow/shared/models/user_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
@@ -8,7 +9,12 @@ import 'package:payflow/shared/themes/app_text_styles.dart';
 
 class HomePage extends StatefulWidget {
   final UserModel user;
-  const HomePage({Key? key, required this.user}) : super(key: key);
+  final LoginController controller;
+  HomePage({
+    Key? key,
+    required this.user,
+    required this.controller,
+  }) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -96,16 +102,28 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             IconButton(
-                onPressed: () {
-                  controller.setPage(1);
-                  setState(() {});
-                },
-                icon: Icon(
-                  Icons.description_outlined,
-                  color: controller.currentPage == 1
-                      ? AppColors.primary
-                      : AppColors.body,
-                ))
+              onPressed: () {
+                controller.setPage(1);
+                setState(() {});
+              },
+              icon: Icon(
+                Icons.description_outlined,
+                color: controller.currentPage == 1
+                    ? AppColors.primary
+                    : AppColors.body,
+              ),
+            ),
+            IconButton(
+              onPressed: () async {
+                widget.controller.googleLogOut(context);
+              },
+              icon: Icon(
+                Icons.logout,
+                color: controller.currentPage == 1
+                    ? AppColors.primary
+                    : AppColors.body,
+              ),
+            ),
           ],
         ),
       ),
